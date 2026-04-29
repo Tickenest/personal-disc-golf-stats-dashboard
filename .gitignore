@@ -1,0 +1,39 @@
+# Secrets
+.env
+.env.*
+terraform/terraform.tfvars
+
+# Data
+data/*.parquet
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# AWS
+*.pem
+*.key
+.aws/
+samconfig.toml
+cdk.context.json
+
+# Deployment
+package/
+deployment.zip
+deployment_refresh.zip
+deployment_query.zip
+deployment_agent.zip
+
+# Node
+node_modules/
+frontend/build/
+
+# Editor
+*.swp
+.vscode/
+
+# OS
+Thumbs.db
