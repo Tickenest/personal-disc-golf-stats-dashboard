@@ -1,0 +1,16 @@
+[
+    {
+        "course_key": "Hal & Berni",
+        "sheet_name": "Hal+%26+Berni",
+        "short_name": "Brambleton",
+        "lat": 38.9977,
+        "lon": -77.5296
+    },
+    {
+        "course_key": "Franklin-WW",
+        "sheet_name": "Franklin-WW",
+        "short_name": "Franklin Park",
+        "lat": 39.1371,
+        "lon": -77.7539
+    }
+]
