@@ -22,6 +22,9 @@ cdk.context.json
 
 # Deployment
 package/
+package_refresh/
+package_query/
+package_agent/
 deployment.zip
 deployment_refresh.zip
 deployment_query.zip
