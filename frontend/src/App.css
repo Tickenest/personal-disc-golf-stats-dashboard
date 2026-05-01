@@ -1,81 +1,43 @@
-/* ── Base ─────────────────────────────────────────────────────────── */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+/* ── Round Viewer ─────────────────────────────────────────────────── */
+.filter-row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
 }
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        sans-serif;
-    background: #f0f2f5;
-    color: #333;
-    line-height: 1.5;
-}
-
-/* ── Layout ───────────────────────────────────────────────────────── */
-.app {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 16px 40px;
-}
-
-.app-header {
-    padding: 32px 0 24px;
-    border-bottom: 2px solid #ddd;
-    margin-bottom: 24px;
-}
-
-.app-header h1 {
-    font-size: 2rem;
-    color: #2c3e50;
-}
-
-.subtitle {
-    color: #666;
-    margin-top: 4px;
-    font-size: 0.95rem;
-}
-
-.app-main {
+.filter-group {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 4px;
 }
 
-/* ── Cards ────────────────────────────────────────────────────────── */
-.card {
+.filter-group label {
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.filter-group select {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #333;
     background: white;
-    border-radius: 8px;
-    padding: 24px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
 }
 
-.card h2 {
-    font-size: 1.2rem;
-    color: #2c3e50;
-    margin-bottom: 16px;
+.filter-group select:focus {
+    outline: none;
+    border-color: #4a90d9;
 }
 
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-}
-
-.card-header h2 {
-    margin-bottom: 0;
-}
-
-/* ── Filter Buttons ───────────────────────────────────────────────── */
-.filter-buttons {
-    display: flex;
-    gap: 8px;
-}
-
-.filter-buttons button {
-    padding: 4px 12px;
+.reset-button {
+    padding: 6px 14px;
     border: 1px solid #ddd;
     border-radius: 4px;
     background: white;
@@ -83,61 +45,37 @@ body {
     font-size: 0.85rem;
     color: #555;
     transition: all 0.15s;
+    align-self: flex-end;
 }
 
-.filter-buttons button:hover {
+.reset-button:hover {
     background: #f0f2f5;
 }
 
-.filter-buttons button.active {
-    background: #4a90d9;
-    color: white;
-    border-color: #4a90d9;
+.table-scroll {
+    overflow-x: auto;
+    margin-top: 8px;
 }
 
-/* ── Tables ───────────────────────────────────────────────────────── */
-.data-table {
+.rounds-table th {
+    user-select: none;
+}
+
+.rounds-table th:hover {
+    background: #eef0f2;
+}
+
+/* ── Round Viewer scroll constraint ───────────────────────────────── */
+.table-scroll {
+    overflow-x: auto;
     width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
 }
 
-.data-table th {
-    text-align: left;
-    padding: 8px 12px;
-    background: #f8f9fa;
-    border-bottom: 2px solid #dee2e6;
-    color: #555;
-    font-weight: 600;
-    font-size: 0.82rem;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
+.rounds-table {
+    min-width: 1800px;
 }
 
-.data-table td {
-    padding: 10px 12px;
-    border-bottom: 1px solid #f0f2f5;
-}
-
-.data-table tr:last-child td {
-    border-bottom: none;
-}
-
-.data-table tr:hover td {
-    background: #fafbfc;
-}
-
-/* ── Score Colors ─────────────────────────────────────────────────── */
-.good {
-    color: #27ae60;
-    font-weight: 600;
-}
-
-.over {
-    color: #e74c3c;
-}
-
-/* ── Course Summary Grid ──────────────────────────────────────────── */
+/* ── Course Summary fix ───────────────────────────────────────────── */
 .summary-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -175,131 +113,10 @@ body {
     color: #2c3e50;
 }
 
-/* ── Chart Legend ─────────────────────────────────────────────────── */
-.chart-legend {
-    margin-top: 12px;
-    font-size: 0.82rem;
-    color: #666;
-    text-align: center;
-}
-
-/* ── ChatBox ──────────────────────────────────────────────────────── */
-.chatbox {
+/* ── Round Comparison ─────────────────────────────────────────────── */
+.comparison-summary {
     display: flex;
-    flex-direction: column;
-}
-
-.chat-intro {
-    color: #666;
-    margin-bottom: 16px;
-    font-size: 0.9rem;
-}
-
-.unlock-form {
-    display: flex;
-    gap: 8px;
-}
-
-.messages {
-    max-height: 400px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 16px;
-    padding-right: 4px;
-}
-
-.message {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.message.user {
-    align-items: flex-end;
-}
-
-.message.assistant {
-    align-items: flex-start;
-}
-
-.message-label {
-    font-size: 0.75rem;
-    color: #999;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.message-text {
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    max-width: 85%;
-    white-space: pre-wrap;
-    line-height: 1.5;
-}
-
-.message.user .message-text {
-    background: #4a90d9;
-    color: white;
-    border-radius: 8px 8px 2px 8px;
-}
-
-.message.assistant .message-text {
-    background: #f0f2f5;
-    color: #333;
-    border-radius: 8px 8px 8px 2px;
-}
-
-.thinking {
-    color: #999;
-    font-style: italic;
-}
-
-.chat-form {
-    display: flex;
-    gap: 8px;
-}
-
-.chat-input {
-    flex: 1;
-    padding: 10px 14px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.15s;
-}
-
-.chat-input:focus {
-    border-color: #4a90d9;
-}
-
-.send-button {
-    padding: 10px 20px;
-    background: #4a90d9;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: background 0.15s;
-}
-
-.send-button:hover:not(:disabled) {
-    background: #357abd;
-}
-
-.send-button:disabled {
-    background: #aaa;
-    cursor: not-allowed;
-}
-
-.error-text {
-    color: #e74c3c;
-    font-size: 0.85rem;
-    margin-top: 8px;
+    gap: 16px;
+    margin: 16px 0;
+    flex-wrap: wrap;
 }

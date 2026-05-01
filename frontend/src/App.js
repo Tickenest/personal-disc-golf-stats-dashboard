@@ -4,6 +4,8 @@ import ScoringTrend from "./components/ScoringTrend";
 import HoleBreakdown from "./components/HoleBreakdown";
 import WeatherCorrelation from "./components/WeatherCorrelation";
 import RecentRounds from "./components/RecentRounds";
+import RoundViewer from "./components/RoundViewer";
+import RoundComparison from "./components/RoundComparison";
 import ChatBox from "./components/ChatBox";
 import config from "./config";
 import "./App.css";
@@ -27,6 +29,7 @@ function App() {
         holeAveragesFranklin: null,
         weatherCorrelation: null,
         recentRounds: null,
+        allRounds: null,
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -39,6 +42,7 @@ function App() {
             fetchQuery("hole_averages", { course: "Franklin Park" }),
             fetchQuery("weather_correlation"),
             fetchQuery("recent_rounds", { limit: 5 }),
+            fetchQuery("all_rounds"),
         ])
             .then(([
                 courseSummary,
@@ -47,6 +51,7 @@ function App() {
                 holeAveragesFranklin,
                 weatherCorrelation,
                 recentRounds,
+                allRounds,
             ]) => {
                 setData({
                     courseSummary: courseSummary.data || [],
@@ -55,6 +60,7 @@ function App() {
                     holeAveragesFranklin: holeAveragesFranklin.data || [],
                     weatherCorrelation: weatherCorrelation.data || [],
                     recentRounds: recentRounds.data || [],
+                    allRounds: allRounds.data || [],
                 });
                 setLoading(false);
             })
@@ -107,6 +113,12 @@ function App() {
                     franklin={data.holeAveragesFranklin}
                 />
                 <WeatherCorrelation data={data.weatherCorrelation} />
+                <RoundViewer data={data.allRounds} />
+                <RoundComparison
+                    allRounds={data.allRounds}
+                    holeAveragesBrambleton={data.holeAveragesBrambleton}
+                    holeAveragesFranklin={data.holeAveragesFranklin}
+                />
                 <ChatBox />
             </main>
         </div>

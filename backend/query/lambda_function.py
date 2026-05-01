@@ -107,6 +107,7 @@ def run_query(query_type: str, params: dict, parquet_path: str) -> dict:
         "best_rounds": query_best_rounds,
         "weather_correlation": query_weather_correlation,
         "recent_rounds": query_recent_rounds,
+        "all_rounds": query_all_rounds,
     }
 
     if query_type not in queries:
@@ -288,6 +289,39 @@ def query_recent_rounds(params: dict, parquet_path: str) -> dict:
     """
     rows = execute_query(query, parquet_path)
     return {"query_type": "recent_rounds", "data": rows}
+
+def query_all_rounds(params: dict, parquet_path: str) -> dict:
+    """All rounds with all columns, optionally filtered by course."""
+    course = params.get("course")
+    course_filter = f"AND course = '{course}'" if course else ""
+
+    query = f"""
+        SELECT
+            date,
+            course,
+            total_score,
+            total_par,
+            score_vs_par,
+            front_score,
+            front_par,
+            front_vs_par,
+            back_score,
+            back_par,
+            back_vs_par,
+            hole_1_score, hole_2_score, hole_3_score, hole_4_score,
+            hole_5_score, hole_6_score, hole_7_score, hole_8_score,
+            hole_9_score, hole_10_score, hole_11_score, hole_12_score,
+            hole_13_score, hole_14_score, hole_15_score, hole_16_score,
+            hole_17_score, hole_18_score,
+            temp_f,
+            wind_mph,
+            weather_desc
+        FROM rounds
+        WHERE 1=1 {course_filter}
+        ORDER BY datetime DESC
+    """
+    rows = execute_query(query, parquet_path)
+    return {"query_type": "all_rounds", "data": rows}
 
 
 if __name__ == "__main__":
