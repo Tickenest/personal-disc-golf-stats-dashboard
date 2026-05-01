@@ -1,4 +1,5 @@
 import React from "react";
+import { scoreColor, tempColor, windColor, weatherColor } from "../utils/colors";
 
 function RecentRounds({ data }) {
     if (!data) return <div className="card">No recent rounds available.</div>;
@@ -23,13 +24,24 @@ function RecentRounds({ data }) {
                         <tr key={idx}>
                             <td>{round.date}</td>
                             <td>{round.course}</td>
-                            <td>{round.total_score}</td>
-                            <td className={round.score_vs_par <= 0 ? "good" : "over"}>
+                            <td style={scoreColor(round.total_score, round.total_par)}>
+                                {round.total_score}
+                            </td>
+                            <td
+                                style={scoreColor(round.total_score, round.total_par)}
+                                className={round.score_vs_par <= 0 ? "good" : "over"}
+                            >
                                 {round.score_vs_par > 0 ? "+" : ""}{round.score_vs_par}
                             </td>
-                            <td>{round.temp_f ? `${round.temp_f}°F` : "—"}</td>
-                            <td>{round.wind_mph ? `${round.wind_mph} mph` : "—"}</td>
-                            <td>{round.weather_desc || "—"}</td>
+                            <td style={tempColor(round.temp_f)}>
+                                {round.temp_f ? `${round.temp_f}°F` : "—"}
+                            </td>
+                            <td style={windColor(round.wind_mph)}>
+                                {round.wind_mph ? `${round.wind_mph} mph` : "—"}
+                            </td>
+                            <td style={{ ...weatherColor(round.weather_desc), whiteSpace: "nowrap" }}>
+                                {round.weather_desc || "—"}
+                            </td>
                         </tr>
                     ))}
                 </tbody>

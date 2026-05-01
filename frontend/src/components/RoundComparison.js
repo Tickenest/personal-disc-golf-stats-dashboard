@@ -62,7 +62,6 @@ function RoundComparison({ allRounds, holeAveragesBrambleton, holeAveragesFrankl
         });
     }, [selectedRound, courseAverages]);
 
-    // Early return after all hooks
     if (!allRounds || !holeAveragesBrambleton || !holeAveragesFranklin) {
         return <div className="card">No data available for comparison.</div>;
     }
@@ -70,6 +69,14 @@ function RoundComparison({ allRounds, holeAveragesBrambleton, holeAveragesFrankl
     if (!selectedRound) {
         return <div className="card">No rounds available for comparison.</div>;
     }
+
+    const allValues = chartData
+        .flatMap((d) => [d["This Round"], d["Course Avg"]])
+        .filter((v) => v !== null && v !== undefined);
+    const minVal = Math.min(...allValues);
+    const maxVal = Math.max(...allValues);
+    const yMin = Math.max(0, minVal - 1);
+    const yMax = maxVal + 1;
 
     const roundOptions = allRounds.map((r, idx) => ({
         idx,
@@ -82,7 +89,6 @@ function RoundComparison({ allRounds, holeAveragesBrambleton, holeAveragesFrankl
             <p className="chat-intro">
                 Compare a round's hole-by-hole scores against your average at that course.
             </p>
-
             <div className="filter-row">
                 <div className="filter-group" style={{ flex: 1 }}>
                     <label>Select Round</label>
@@ -99,7 +105,6 @@ function RoundComparison({ allRounds, holeAveragesBrambleton, holeAveragesFrankl
                     </select>
                 </div>
             </div>
-
             <div className="comparison-summary">
                 <div className="summary-box" style={{ flex: 1 }}>
                     <div className="stat-row">
@@ -156,7 +161,6 @@ function RoundComparison({ allRounds, holeAveragesBrambleton, holeAveragesFrankl
                     </div>
                 </div>
             </div>
-
             <ResponsiveContainer width="100%" height={300}>
                 <BarChart
                     data={chartData}
@@ -164,7 +168,12 @@ function RoundComparison({ allRounds, holeAveragesBrambleton, holeAveragesFrankl
                 >
                     <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
                     <XAxis dataKey="hole" tick={{ fontSize: 11 }} />
-                    <YAxis tick={{ fontSize: 11 }} domain={["auto", "auto"]} />
+                    <YAxis
+                        tick={{ fontSize: 11 }}
+                        domain={[yMin, yMax]}
+                        allowDecimals={false}
+                        tickCount={yMax - yMin + 1}
+                    />
                     <Tooltip />
                     <Legend />
                     <ReferenceLine y={0} stroke="#666" />

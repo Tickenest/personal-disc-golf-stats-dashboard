@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import { scoreColor, tempColor, windColor, weatherColor } from "../utils/colors";
 
 const HOLES = Array.from({ length: 18 }, (_, i) => i + 1);
 
@@ -56,7 +57,6 @@ function RoundViewer({ data }) {
         });
     }, [filtered, sortCol, sortDir]);
 
-    // Early return after all hooks
     if (!data) return <div className="card">No rounds data available.</div>;
 
     function handleSort(col) {
@@ -87,7 +87,6 @@ function RoundViewer({ data }) {
     return (
         <div className="card">
             <h2>All Rounds ({sorted.length})</h2>
-
             <div className="filter-row">
                 <div className="filter-group">
                     <label>Course</label>
@@ -135,7 +134,6 @@ function RoundViewer({ data }) {
                     Reset
                 </button>
             </div>
-
             <div className="table-scroll">
                 <table className="data-table rounds-table">
                     <thead>
@@ -162,27 +160,54 @@ function RoundViewer({ data }) {
                             <tr key={idx}>
                                 <td style={{ whiteSpace: "nowrap" }}>{row.date}</td>
                                 <td style={{ whiteSpace: "nowrap" }}>{row.course}</td>
-                                <td>{row.total_score}</td>
+                                <td style={scoreColor(row.total_score, row.total_par)}>
+                                    {row.total_score}
+                                </td>
                                 <td>{row.total_par}</td>
-                                <td className={row.score_vs_par <= 0 ? "good" : "over"}>
+                                <td
+                                    style={scoreColor(row.total_score, row.total_par)}
+                                    className={row.score_vs_par <= 0 ? "good" : "over"}
+                                >
                                     {row.score_vs_par > 0 ? "+" : ""}{row.score_vs_par}
                                 </td>
-                                <td>{row.front_score}</td>
+                                <td style={scoreColor(row.front_score, row.front_par)}>
+                                    {row.front_score}
+                                </td>
                                 <td>{row.front_par}</td>
-                                <td className={row.front_vs_par <= 0 ? "good" : "over"}>
+                                <td
+                                    style={scoreColor(row.front_score, row.front_par)}
+                                    className={row.front_vs_par <= 0 ? "good" : "over"}
+                                >
                                     {row.front_vs_par > 0 ? "+" : ""}{row.front_vs_par}
                                 </td>
-                                <td>{row.back_score}</td>
+                                <td style={scoreColor(row.back_score, row.back_par)}>
+                                    {row.back_score}
+                                </td>
                                 <td>{row.back_par}</td>
-                                <td className={row.back_vs_par <= 0 ? "good" : "over"}>
+                                <td
+                                    style={scoreColor(row.back_score, row.back_par)}
+                                    className={row.back_vs_par <= 0 ? "good" : "over"}
+                                >
                                     {row.back_vs_par > 0 ? "+" : ""}{row.back_vs_par}
                                 </td>
-                                {HOLES.map((h) => (
-                                    <td key={h}>{row[`hole_${h}_score`] ?? "—"}</td>
-                                ))}
-                                <td>{row.temp_f ? `${row.temp_f}°F` : "—"}</td>
-                                <td>{row.wind_mph ? `${row.wind_mph} mph` : "—"}</td>
-                                <td style={{ whiteSpace: "nowrap" }}>{row.weather_desc || "—"}</td>
+                                {HOLES.map((h) => {
+                                    const score = row[`hole_${h}_score`];
+                                    const par = row[`hole_${h}_par`] ?? null;
+                                    return (
+                                        <td key={h} style={scoreColor(score, par)}>
+                                            {score ?? "—"}
+                                        </td>
+                                    );
+                                })}
+                                <td style={tempColor(row.temp_f)}>
+                                    {row.temp_f ? `${row.temp_f}°F` : "—"}
+                                </td>
+                                <td style={windColor(row.wind_mph)}>
+                                    {row.wind_mph ? `${row.wind_mph} mph` : "—"}
+                                </td>
+                                <td style={{ ...weatherColor(row.weather_desc), whiteSpace: "nowrap" }}>
+                                    {row.weather_desc || "—"}
+                                </td>
                             </tr>
                         ))}
                     </tbody>
