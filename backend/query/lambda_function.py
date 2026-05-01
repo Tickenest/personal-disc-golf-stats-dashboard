@@ -40,9 +40,11 @@ def execute_query(query: str, parquet_path: str) -> list[dict]:
     """Execute a DuckDB query against the Parquet file."""
     conn = duckdb.connect()
     conn.execute(f"CREATE VIEW rounds AS SELECT * FROM read_parquet('{parquet_path}')")
-    result = conn.execute(query).fetchdf()
+    result = conn.execute(query)
+    columns = [desc[0] for desc in result.description]
+    rows = result.fetchall()
     conn.close()
-    return result.to_dict(orient="records")
+    return [dict(zip(columns, row)) for row in rows]
 
 
 def lambda_handler(event, context):
