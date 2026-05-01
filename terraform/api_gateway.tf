@@ -193,8 +193,8 @@ resource "aws_api_gateway_usage_plan" "main" {
   }
 
   throttle_settings {
-    rate_limit  = 0.083
-    burst_limit = 5
+    rate_limit  = 10
+    burst_limit = 20
   }
 }
 
