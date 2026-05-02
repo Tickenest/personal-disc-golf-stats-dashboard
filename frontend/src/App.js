@@ -22,6 +22,10 @@ function fetchQuery(queryType, params = {}) {
 }
 
 function App() {
+    const [darkMode, setDarkMode] = useState(() => {
+        return localStorage.getItem("darkMode") === "true";
+    });
+
     const [data, setData] = useState({
         courseSummary: null,
         scoringTrend: null,
@@ -33,6 +37,15 @@ function App() {
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (darkMode) {
+            document.body.classList.add("dark");
+        } else {
+            document.body.classList.remove("dark");
+        }
+        localStorage.setItem("darkMode", darkMode);
+    }, [darkMode]);
 
     useEffect(() => {
         Promise.all([
@@ -74,7 +87,15 @@ function App() {
         return (
             <div className="app">
                 <header className="app-header">
-                    <h1>⛳ Disc Golf Stats</h1>
+                    <div className="header-top">
+                        <h1>⛳ Disc Golf Stats</h1>
+                        <button
+                            className="dark-mode-toggle"
+                            onClick={() => setDarkMode((d) => !d)}
+                        >
+                            {darkMode ? "☀️ Light" : "🌙 Dark"}
+                        </button>
+                    </div>
                     <p className="subtitle">Personal performance dashboard</p>
                 </header>
                 <main className="app-main">
@@ -88,7 +109,15 @@ function App() {
         return (
             <div className="app">
                 <header className="app-header">
-                    <h1>⛳ Disc Golf Stats</h1>
+                    <div className="header-top">
+                        <h1>⛳ Disc Golf Stats</h1>
+                        <button
+                            className="dark-mode-toggle"
+                            onClick={() => setDarkMode((d) => !d)}
+                        >
+                            {darkMode ? "☀️ Light" : "🌙 Dark"}
+                        </button>
+                    </div>
                     <p className="subtitle">Personal performance dashboard</p>
                 </header>
                 <main className="app-main">
@@ -101,7 +130,16 @@ function App() {
     return (
         <div className="app">
             <header className="app-header">
-                <h1>⛳ Disc Golf Stats</h1>
+                <div className="header-top">
+                    <h1>⛳ Disc Golf Stats</h1>
+                    <button
+                        className="dark-mode-toggle"
+                        onClick={() => setDarkMode((d) => !d)}
+                        title="Toggle dark mode"
+                    >
+                        {darkMode ? "☀️ Light" : "🌙 Dark"}
+                    </button>
+                </div>
                 <p className="subtitle">Personal performance dashboard</p>
             </header>
             <main className="app-main">

@@ -1,3 +1,270 @@
+/* ── CSS Variables — Light Mode Defaults ──────────────────────────── */
+:root {
+    --bg-page:        #f0f2f5;
+    --bg-card:        #ffffff;
+    --bg-subtle:      #f8f9fa;
+    --bg-hover:       #fafbfc;
+    --text-primary:   #333333;
+    --text-secondary: #666666;
+    --text-heading:   #2c3e50;
+    --border:         #dee2e6;
+    --border-light:   #f0f2f5;
+    --accent:         #4a90d9;
+    --accent-hover:   #357abd;
+    --good:           #27ae60;
+    --over:           #e74c3c;
+    --th-bg:          #f8f9fa;
+    --input-bg:       #ffffff;
+    --input-border:   #dddddd;
+    --msg-user-bg:    #4a90d9;
+    --msg-agent-bg:   #f0f2f5;
+    --msg-agent-text: #333333;
+    --filter-active:  #4a90d9;
+    --summary-box-bg: #f8f9fa;
+    --button-bg:      #ffffff;
+    --button-text:    #555555;
+    --disabled-bg:    #aaaaaa;
+}
+
+/* ── CSS Variables — Dark Mode ────────────────────────────────────── */
+body.dark {
+    --bg-page:        #1a1a2e;
+    --bg-card:        #16213e;
+    --bg-subtle:      #0f3460;
+    --bg-hover:       #1a2a4a;
+    --text-primary:   #e0e0e0;
+    --text-secondary: #a0a0b0;
+    --text-heading:   #c8d8f0;
+    --border:         #2a3a5a;
+    --border-light:   #1e2e4e;
+    --accent:         #4a90d9;
+    --accent-hover:   #5aa0e9;
+    --good:           #2ecc71;
+    --over:           #e74c3c;
+    --th-bg:          #0f3460;
+    --input-bg:       #0f3460;
+    --input-border:   #2a3a5a;
+    --msg-user-bg:    #2e5090;
+    --msg-agent-bg:   #0f3460;
+    --msg-agent-text: #e0e0e0;
+    --filter-active:  #4a90d9;
+    --summary-box-bg: #0f3460;
+    --button-bg:      #0f3460;
+    --button-text:    #c0c0d0;
+    --disabled-bg:    #444466;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────── */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.5;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* ── Layout ───────────────────────────────────────────────────────── */
+.app {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 16px 40px;
+}
+
+.app-header {
+    padding: 32px 0 24px;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 24px;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.app-header h1 {
+    font-size: 2rem;
+    color: var(--text-heading);
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    margin-top: 4px;
+    font-size: 0.95rem;
+}
+
+.app-main {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ── Dark Mode Toggle ─────────────────────────────────────────────── */
+.dark-mode-toggle {
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--button-bg);
+    color: var(--button-text);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.15s;
+}
+
+.dark-mode-toggle:hover {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+/* ── Cards ────────────────────────────────────────────────────────── */
+.card {
+    background: var(--bg-card);
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+    font-size: 1.2rem;
+    color: var(--text-heading);
+    margin-bottom: 16px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.card-header h2 {
+    margin-bottom: 0;
+}
+
+/* ── Filter Buttons ───────────────────────────────────────────────── */
+.filter-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.filter-buttons button {
+    padding: 4px 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--button-bg);
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--button-text);
+    transition: all 0.15s;
+}
+
+.filter-buttons button:hover {
+    background: var(--bg-subtle);
+}
+
+.filter-buttons button.active {
+    background: var(--filter-active);
+    color: white;
+    border-color: var(--filter-active);
+}
+
+/* ── Tables ───────────────────────────────────────────────────────── */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 8px 12px;
+    background: var(--th-bg);
+    border-bottom: 2px solid var(--border);
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.data-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-primary);
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tr:hover td {
+    background: var(--bg-hover);
+}
+
+/* ── Score Colors ─────────────────────────────────────────────────── */
+.good {
+    color: var(--good);
+    font-weight: 600;
+}
+
+.over {
+    color: var(--over);
+}
+
+/* ── Course Summary Grid ──────────────────────────────────────────── */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.summary-box {
+    background: var(--summary-box-bg);
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.summary-box h3 {
+    font-size: 1rem;
+    color: var(--text-heading);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 0.9rem;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+}
+
+.stat-value {
+    font-weight: 600;
+    color: var(--text-heading);
+}
+
+/* ── Chart Legend ─────────────────────────────────────────────────── */
+.chart-legend {
+    margin-top: 12px;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
 /* ── Round Viewer ─────────────────────────────────────────────────── */
 .filter-row {
     display: flex;
@@ -15,7 +282,7 @@
 
 .filter-group label {
     font-size: 0.8rem;
-    color: #666;
+    color: var(--text-secondary);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.03em;
@@ -23,49 +290,35 @@
 
 .filter-group select {
     padding: 6px 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--input-border);
     border-radius: 4px;
     font-size: 0.9rem;
-    color: #333;
-    background: white;
+    color: var(--text-primary);
+    background: var(--input-bg);
     cursor: pointer;
 }
 
 .filter-group select:focus {
     outline: none;
-    border-color: #4a90d9;
+    border-color: var(--accent);
 }
 
 .reset-button {
     padding: 6px 14px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border);
     border-radius: 4px;
-    background: white;
+    background: var(--button-bg);
     cursor: pointer;
     font-size: 0.85rem;
-    color: #555;
+    color: var(--button-text);
     transition: all 0.15s;
     align-self: flex-end;
 }
 
 .reset-button:hover {
-    background: #f0f2f5;
+    background: var(--bg-subtle);
 }
 
-.table-scroll {
-    overflow-x: auto;
-    margin-top: 8px;
-}
-
-.rounds-table th {
-    user-select: none;
-}
-
-.rounds-table th:hover {
-    background: #eef0f2;
-}
-
-/* ── Round Viewer scroll constraint ───────────────────────────────── */
 .table-scroll {
     overflow-x: auto;
     width: 100%;
@@ -75,42 +328,12 @@
     min-width: 1800px;
 }
 
-/* ── Course Summary fix ───────────────────────────────────────────── */
-.summary-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 16px;
+.rounds-table th {
+    user-select: none;
 }
 
-.summary-box {
-    background: #f8f9fa;
-    border-radius: 6px;
-    padding: 16px;
-}
-
-.summary-box h3 {
-    font-size: 1rem;
-    color: #2c3e50;
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #dee2e6;
-}
-
-.stat-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 0;
-    font-size: 0.9rem;
-}
-
-.stat-label {
-    color: #666;
-}
-
-.stat-value {
-    font-weight: 600;
-    color: #2c3e50;
+.rounds-table th:hover {
+    background: var(--bg-hover);
 }
 
 /* ── Round Comparison ─────────────────────────────────────────────── */
@@ -119,4 +342,127 @@
     gap: 16px;
     margin: 16px 0;
     flex-wrap: wrap;
+}
+
+/* ── ChatBox ──────────────────────────────────────────────────────── */
+.chatbox {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-intro {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+}
+
+.unlock-form {
+    display: flex;
+    gap: 8px;
+}
+
+.messages {
+    max-height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-right: 4px;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.message.user {
+    align-items: flex-end;
+}
+
+.message.assistant {
+    align-items: flex-start;
+}
+
+.message-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.message-text {
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    max-width: 85%;
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.message.user .message-text {
+    background: var(--msg-user-bg);
+    color: white;
+    border-radius: 8px 8px 2px 8px;
+}
+
+.message.assistant .message-text {
+    background: var(--msg-agent-bg);
+    color: var(--msg-agent-text);
+    border-radius: 8px 8px 8px 2px;
+}
+
+.thinking {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.chat-form {
+    display: flex;
+    gap: 8px;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    outline: none;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    transition: border-color 0.15s;
+}
+
+.chat-input:focus {
+    border-color: var(--accent);
+}
+
+.send-button {
+    padding: 10px 20px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.15s;
+}
+
+.send-button:hover:not(:disabled) {
+    background: var(--accent-hover);
+}
+
+.send-button:disabled {
+    background: var(--disabled-bg);
+    cursor: not-allowed;
+}
+
+.error-text {
+    color: var(--over);
+    font-size: 0.85rem;
+    margin-top: 8px;
 }

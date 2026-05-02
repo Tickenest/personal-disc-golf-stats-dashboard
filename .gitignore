@@ -53,3 +53,6 @@ frontend/build/
 
 # Frontend config with API key
 frontend/src/config.js
+
+# Writeup
+DiscGolf_Project_Deep_Dive.docx
